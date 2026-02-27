@@ -444,8 +444,7 @@ def main():
     processed_dir = input_path
     if args.coastline_gpkg and os.path.exists(args.coastline_gpkg):
         print(f"Applying coastline mask from {args.coastline_gpkg}...")
-        processed_dir = output_path / "coastline_cleaned"
-        processed_dir.mkdir(exist_ok=True)
+        processed_dir = output_path
         
         tif_files = list(input_path.rglob("*_mask.tif"))
         for tif in tif_files:
