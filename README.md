@@ -32,7 +32,7 @@ You can set up this library directly on your local machine or HPC environment af
 
 ```bash
 # clone the repository
-git clone https://github.com/[your-username]/Antarctic-Grounded-Iceberg-Detection.git
+git clone https://github.com/kj0703/Antarctic-Grounded-Iceberg-Detection.git
 
 # change into the main directory
 cd Antarctic-Grounded-Iceberg-Detection
