@@ -1,0 +1,36 @@
+name: iceberg_detection
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  # Base environment
+  - python=3.12
+  - pip
+
+  # Data science & Numerical analysis
+  - numpy=2.2.6
+  - pandas=2.3.3
+  - xarray=2025.10.1
+  - scipy=1.16.1
+
+  # Geospatial stack
+  - geopandas=1.1.1
+  - rasterio=1.4.3
+  - shapely=2.1.2
+  - pyproj=3.7.2
+
+  # Deep Learning & GPU acceleration
+  - pytorch=2.8.0
+  - torchvision=0.23.0
+  - pytorch-cuda=12.8
+
+  # System & Progress utilities
+  - psutil=7.0.0
+  - tqdm=4.67.1
+
+  # Pip-specific installs for precise version matching
+  - pip:
+    - opencv-python==4.12.0.88
+    - Pillow==11.3.0
