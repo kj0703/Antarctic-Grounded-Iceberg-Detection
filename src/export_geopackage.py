@@ -4,7 +4,7 @@ This script transforms the filtered trajectory CSV data into a fully formatted G
 It extracts the precise representative polygon for each iceberg, resolves spatial overlaps (deduplication) 
 across adjacent orbital passes, and performs a topological classification against a reference Fast Ice dataset.
 """
-1
+
 import sys
 import os
 import argparse
