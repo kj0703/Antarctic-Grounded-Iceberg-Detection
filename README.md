@@ -24,6 +24,9 @@ conda activate iceberg_detection
 
 (Alternatively, a `requirements.txt` is provided for standard pip installations).
 
+### Ancillary Data Requirements
+To successfully execute the full pipeline (specifically the environmental filtering and topological classification modules), several external datasets are required (e.g., SCAR Coastline, IBCSO Bathymetry, OSI-SAF Sea Ice Concentration). Please refer to the `DATA_ACQUISITION.md` file in this repository for detailed download links and formatting instructions.
+
 ---
 
 ## 2) Installation
@@ -42,50 +45,49 @@ cd Antarctic-Grounded-Iceberg-Detection
 
 ## 3) Usage: Pipeline Execution
 
-The workflow is divided into five sequential Python modules.
+The workflow is divided into five sequential Python modules. To help users quickly verify the pipeline, a miniature dataset (`demo_data.zip`) containing cropped Sentinel-1 imagery and all corresponding auxiliary data is provided in the **Releases** section.
 
-Below is a standard execution sequence for a typical orbital dataset.
+> **Note for Full-Scale Processing:** The commands below use the paths from the `demo_data` as a working example. To run this pipeline on your own orbital datasets, simply replace the `demo_data/...` paths with your absolute system paths (e.g., `/path/to/your/TIF`).
 
----
+After downloading and extracting `demo_data.zip` into the repository root, execute the workflow sequentially from the root directory:
 
-### 3.1) Deep Learning Segmentation (`detect.py`)
-
+### 3.1) Deep Learning Segmentation (`src/detect.py`)
 Utilises a ResUNet architecture to predict binary iceberg masks from calibrated Sentinel-1 SAR imagery.
 
 ```bash
-python detect.py \
-  --input_dir "/path/to/TIF" \
-  --output_dir "/path/to/Mask" \
-  --model_path "/path/to/resunet_v1.0.0.pth" \
+python src/detect.py \
+  --input_dir "demo_data/TIF" \
+  --output_dir "demo_data/Mask" \
+  --model_path "models/resunet_v1.0.0.pth" \
   --patch_size 250 \
   --batch_size 35
 ```
 
 ---
 
-### 3.2) Region Extraction & Coastline Masking (`extract_icebergs.py`)
+### 3.2) Region Extraction & Coastline Masking (`src/extract_icebergs.py`)
 
 Extracts connected components from the binary masks. It includes an optional spatial intersection filter using the high-resolution SCAR Antarctic Digital Database (ADD) to eliminate terrestrial and ice-shelf false positives. Outputs are automatically prefixed for data traceability.
 
 ```bash
-python extract_icebergs.py \
-  --input_dir "/path/to/Mask" \
-  --output_dir "/path/to/Extracted" \
+python src/extract_icebergs.py \
+  --input_dir "demo_data/Mask" \
+  --output_dir "demo_data/Extracted" \
   --min_area 10 \
   --block_rows 1 \
   --block_cols 1 \
-  --coastline_gpkg "/path/to/SCAR_ADD_coastline.gpkg"
+  --coastline_gpkg "demo_data/auxiliary/mini_coastline.gpkg"
 ```
 
 ---
 
-### 3.3) Multi-temporal Trajectory Analysis (`identify_stationaries.py`)
+### 3.3) Multi-temporal Trajectory Analysis (`src/identify_stationaries.py`)
 
 Implements a bipartite matching sequence (Hungarian algorithm) to identify stationary iceberg trajectories across multiple temporal frames. It automatically detects and prioritises coastline-filtered data.
 
 ```bash
-python identify_stationaries.py \
-  --input_dir "/path/to/Extracted" \
+python src/identify_stationaries.py \
+  --input_dir "demo_data/Extracted" \
   --rows 30 \
   --cols 30 \
   --max_distance 10.0 \
@@ -94,17 +96,17 @@ python identify_stationaries.py \
 
 ---
 
-### 3.4) Physical Area Correction and Environmental QC (`physical_filter.py`)
+### 3.4) Physical Area Correction and Environmental QC (`src/physical_filter.py`)
 
 Performs physics-based post-processing. It applies latitude-dependent pixel scaling for accurate area calculation and integrates external datasets (IBCSO bathymetry, OSI-SAF Sea Ice Concentration) to filter out deep-water anomalies and sea-ice false positives.
 
 **Example for Extra Wide (EW) swath mode:**
 
 ```bash
-python physical_filter.py \
-  --input_dir "/path/to/Extracted" \
-  --bathy_file "/path/to/IBCSO_bed.tif" \
-  --sic_dir "/path/to/SIC" \
+python src/physical_filter.py \
+  --input_dir "demo_data/Extracted" \
+  --bathy_file "demo_data/auxiliary/mini_ibcso_bed.tif" \
+  --sic_dir "demo_data/SIC" \
   --min_pixels 10 \
   --cond1_area 625 \
   --cond2_area 63
@@ -113,10 +115,10 @@ python physical_filter.py \
 **Example for Interferometric Wide (IW) swath mode:**
 
 ```bash
-# python physical_filter.py \
-#   --input_dir "/path/to/Extracted" \
-#   --bathy_file "/path/to/IBCSO_bed.tif" \
-#   --sic_dir "/path/to/SIC" \
+# python src/physical_filter.py \
+#   --input_dir "demo_data/Extracted" \
+#   --bathy_file "demo_data/auxiliary/mini_ibcso_bed.tif" \
+#   --sic_dir "demo_data/SIC" \
 #   --min_pixels 40 \
 #   --cond1_area 2500 \
 #   --cond2_area 250
@@ -124,16 +126,16 @@ python physical_filter.py \
 
 ---
 
-### 3.5) Geospatial Synthesis & Deduplication (`export_geopackage.py`)
+### 3.5) Geospatial Synthesis & Deduplication (`src/export_geopackage.py`)
 
 The final data packaging module. It vectorises the representative polygon for each iceberg from its temporal midpoint, resolves spatial overlaps across adjacent orbital passes via R-Tree deduplication, and conducts topological intersection analysis against reference landfast ice geometries.
 
 ```bash
-python export_geopackage.py \
-  --input_csv "/path/to/Extracted/Grounded_iceberg_tracks_coastline_Final.csv" \
-  --mask_dir "/path/to/Extracted" \
-  --fast_ice_gpkg "/path/to/fast_ice_reference.gpkg" \
-  --output_dir "/path/to/Final_Product" \
+python src/export_geopackage.py \
+  --input_csv "demo_data/Extracted/Grounded_iceberg_tracks_coastline_Final.csv" \
+  --mask_dir "demo_data/Extracted" \
+  --fast_ice_gpkg "demo_data/auxiliary/mini_fast_ice.gpkg" \
+  --output_dir "demo_data/Final_Product" \
   --iou_threshold 0.5 \
   --max_workers 6
 ```
