@@ -64,7 +64,8 @@ python identify_stationaries.py \
   --max_distance 10.0 \
   --max_missing_frames 1
 
-# Step 4: Physical and Environmental Filtering (EW Mode Parameters)
+# Step 4: Physical and Environmental Filtering
+# Example for Extra Wide (EW) mode:
 python physical_filter.py \
   --input_dir "/path/to/Extracted" \
   --bathy_file "/path/to/IBCSO_bed.tif" \
@@ -72,6 +73,15 @@ python physical_filter.py \
   --min_pixels 10 \
   --cond1_area 625 \
   --cond2_area 63
+
+# Example for Interferometric Wide (IW) mode:
+# python physical_filter.py \
+#   --input_dir "/path/to/Extracted" \
+#   --bathy_file "/path/to/IBCSO_bed.tif" \
+#   --sic_dir "/path/to/SIC" \
+#   --min_pixels 40 \
+#   --cond1_area 2500 \
+#   --cond2_area 250
 
 # Step 5: Geospatial Export and Classification
 python export_geopackage.py \
