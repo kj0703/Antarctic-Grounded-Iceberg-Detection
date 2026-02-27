@@ -42,7 +42,7 @@ cd Antarctic-Grounded-Iceberg-Detection
 
 ## 3) Usage: Pipeline Execution
 
-The workflow is divided into five sequential Python modules. It utilises a flattened directory architecture for streamlined I/O operations and automatic schema detection for robust data handling.
+The workflow is divided into five sequential Python modules.
 
 Below is a standard execution sequence for a typical orbital dataset.
 
