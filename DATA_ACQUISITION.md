@@ -32,6 +32,6 @@ Used in `src/physical_filter.py` to filter out anomalies caused by dense sea ice
 
 ## 4. Landfast Ice Reference Dataset
 Used in `src/export_geopackage.py` for spatial intersection to classify icebergs as *Inside*, *Partial*, or *Outside* the fast ice extent.
-* **Source**: Provided by Alex Fraser's research group (or derived from the circum-Antarctic fast ice dataset).
+* **Source**: Provided by Alex Fraser's research group.
 * **Format**: GeoPackage (`.gpkg`).
 * **Requirement**: The script evaluates topological overlaps against geometries designated with `class_id == 1`. Ensure your vector data aligns with this schema.
