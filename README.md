@@ -35,7 +35,7 @@ You can set up this library directly on your local machine or HPC environment af
 
 ```bash
 # clone the repository
-git clone https://github.com/kj0703/Antarctic-Grounded-Iceberg-Detection.git
+git clone [https://github.com/kj0703/Antarctic-Grounded-Iceberg-Detection.git](https://github.com/kj0703/Antarctic-Grounded-Iceberg-Detection.git)
 
 # change into the main directory
 cd Antarctic-Grounded-Iceberg-Detection
@@ -43,11 +43,15 @@ cd Antarctic-Grounded-Iceberg-Detection
 
 ---
 
-## 3) Usage: Pipeline Execution
+### 3) Usage: Pipeline Execution
 
-The workflow is divided into five sequential Python modules. To help users quickly verify the pipeline, a miniature dataset (`demo_data.zip`) containing cropped Sentinel-1 imagery and all corresponding auxiliary data is provided in the **Releases** section.
+The workflow is divided into five sequential Python modules. To help users quickly verify the pipeline, a miniature dataset (`demo_data.zip`) containing cropped Sentinel-1 imagery and all corresponding auxiliary data is provided alongside the model weights.
 
-> **Note for Full-Scale Processing:** The commands below use the paths from the `demo_data` as a working example. To run this pipeline on your own orbital datasets, simply replace the `demo_data/...` paths with your absolute system paths (e.g., `/path/to/your/TIF`).
+**Download the demo data:**  
+You can obtain `demo_data.zip` directly from the [Initial release (v1.0.0)](https://github.com/kj0703/Antarctic-Grounded-Iceberg-Detection/releases/tag/v1.0.0).
+
+> **Note for Full-Scale Processing:**  
+> The commands below use the paths from the demo_data as a working example. To run this pipeline on your own orbital datasets, simply replace the `demo_data/...` paths with your absolute system paths (e.g., `/path/to/your/TIF`).
 
 After downloading and extracting `demo_data.zip` into the repository root, execute the workflow sequentially from the root directory:
 
