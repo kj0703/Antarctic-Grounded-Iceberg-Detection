@@ -2,7 +2,7 @@
 
 This repository provides a comprehensive, automated pipeline for the detection, tracking, and geospatial analysis of grounded icebergs using multi-temporal synthetic aperture radar (SAR) imagery. Designed for high-performance computing (HPC) environments, the workflow integrates deep learning segmentation, Hungarian tracking algorithms, physical environmental quality control, and robust spatial topology classification.
 
-Source code for the ESSD paper:
+Source code for the ESSD paper (submitted, currently in review):
 
 **'Grounded Icebergs around Antarctica: A High-Resolution Dataset Derived from Deep Learning and Sentinel-1 Synthetic Aperture Radar'**
 
