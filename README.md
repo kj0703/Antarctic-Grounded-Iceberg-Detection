@@ -155,7 +155,8 @@ The standard projection utilised throughout this pipeline is **EPSG:3031 (WGS 84
 ## 5) Declaration of Generative AI in Scientific Coding
 
 During the preparation of this repository, generative AI tools (Gemini3) were utilised to assist in code refactoring, structural optimisation, and the drafting of documentation. All AI-generated code was thoroughly reviewed, rigorously tested in the NCI supercomputing environment, and validated by the primary author to ensure academic integrity and algorithmic accuracy.
-````
+
+---
 
 ## Data Availability
 
