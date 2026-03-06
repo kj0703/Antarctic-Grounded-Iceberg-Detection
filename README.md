@@ -156,3 +156,9 @@ The standard projection utilised throughout this pipeline is **EPSG:3031 (WGS 84
 
 During the preparation of this repository, generative AI tools (Gemini3) were utilised to assist in code refactoring, structural optimisation, and the drafting of documentation. All AI-generated code was thoroughly reviewed, rigorously tested in the NCI supercomputing environment, and validated by the primary author to ensure academic integrity and algorithmic accuracy.
 ````
+
+## Data Availability
+
+The dataset generated and used in this study is hosted by the **IMAS Data Portal** (Institute for Marine and Antarctic Studies) and is publicly accessible.
+
+* **DOI:** [10.25959/54sx-pt47](https://doi.org/10.25959/54sx-pt47)
