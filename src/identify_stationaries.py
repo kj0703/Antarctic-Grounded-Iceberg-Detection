@@ -249,7 +249,6 @@ def track_icebergs(regions_per_timestamp_per_tile, timestamps, max_distance, max
                 for tid in pos_tracks:
                     if tracks[tid]['missing_count'] <= max_missing_frames:
                         tracks[tid]['missing_count'] += 1
-                        tracks[tid]['cost_data'].append(None)
                 continue
             
             # Case 2: No previous tracks, all current regions are new tracks
@@ -391,7 +390,6 @@ def track_icebergs(regions_per_timestamp_per_tile, timestamps, max_distance, max
                 for tid in pos_tracks:
                     if tracks[tid]['missing_count'] < max_missing_frames:
                         tracks[tid]['missing_count'] += 1
-                        tracks[tid]['cost_data'].append(None)
                 continue
             
             # Execute Linear Sum Assignment (Hungarian Algorithm)
@@ -451,7 +449,6 @@ def track_icebergs(regions_per_timestamp_per_tile, timestamps, max_distance, max
             for tid in pos_tracks:
                 if tid not in matched_track_ids and tracks[tid]['missing_count'] <= max_missing_frames:
                     tracks[tid]['missing_count'] += 1
-                    tracks[tid]['cost_data'].append(None)
             
             # Unmatched current regions spawn new tracks
             for i, region in enumerate(curr_regions):
